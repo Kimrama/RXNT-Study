@@ -1,7 +1,15 @@
-import { StyleSheet, Text, View, TextInput, Pressable } from "react-native";
+import {
+    StyleSheet,
+    Text,
+    View,
+    TextInput,
+    Pressable,
+    ScrollView,
+} from "react-native";
 import { useState } from "react";
 
 import InputComponent from "./components/inputComponent";
+import WorkListComponent from "./components/workListComponent";
 
 export default function App() {
     const [workList, setWorkList] = useState<string[]>([]);
@@ -16,16 +24,11 @@ export default function App() {
     return (
         <View style={styles.container}>
             <InputComponent handleSave={handleSave} />
-            <View style={styles.workContainer}>
+            <ScrollView>
                 {workList.map((work, index) => (
-                    <Text
-                        key={index}
-                        style={{ fontSize: 18, marginVertical: 5 }}
-                    >
-                        {work}
-                    </Text>
+                    <WorkListComponent key={index} workTitle={work} />
                 ))}
-            </View>
+            </ScrollView>
         </View>
     );
 }
@@ -36,13 +39,5 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         alignItems: "center",
         justifyContent: "center",
-    },
-    workContainer: {
-        width: "80%",
-        height: "80%",
-        padding: 20,
-        borderWidth: 1,
-        borderColor: "#ccc",
-        borderRadius: 8,
     },
 });
