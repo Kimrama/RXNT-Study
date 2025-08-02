@@ -8,18 +8,21 @@ export default function WorkListComponent({
 }: WorkListComponentProps) {
     return (
         <View style={styles.workContainer}>
-            <Text>{workTitle}</Text>
+            <Text style={styles.textBox}>{workTitle}</Text>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     workContainer: {
-        width: "80%",
-        height: "80%",
-        padding: 20,
+        width: "100%",
+        padding: 12,
         borderWidth: 1,
         borderColor: "#ccc",
         borderRadius: 8,
+        marginBottom: 10,
+    },
+    textBox: {
+        fontSize: 18,
     },
 });

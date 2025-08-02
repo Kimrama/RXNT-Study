@@ -1,11 +1,25 @@
-import { View, TextInput, Pressable, StyleSheet, Text } from "react-native";
+import {
+    View,
+    TextInput,
+    Pressable,
+    StyleSheet,
+    Text,
+    Modal,
+    Button,
+} from "react-native";
 import { useState } from "react";
 
 interface InputComponentProps {
     handleSave: (workInput: string) => void;
+    visibleState: boolean;
+    setModalFunction: (visible: boolean) => void;
 }
 
-export default function InputComponent({ handleSave }: InputComponentProps) {
+export default function InputComponent({
+    handleSave,
+    visibleState,
+    setModalFunction,
+}: InputComponentProps) {
     const [workInput, setWorkInput] = useState("");
     function handleInputChange(text: string) {
         setWorkInput(text);
@@ -18,50 +32,58 @@ export default function InputComponent({ handleSave }: InputComponentProps) {
         handleSave(workInput);
         setWorkInput("");
     }
+    function handleSetModalFunction() {
+        setModalFunction(false);
+        setWorkInput("");
+    }
     return (
-        <View style={styles.inputContainer}>
-            <TextInput
-                style={styles.textInput}
-                placeholder="Enter your work"
-                onChangeText={handleInputChange}
-                value={workInput}
-            ></TextInput>
-            <Pressable
-                style={styles.button}
-                android_ripple={{ color: "#75b8ff" }}
-                onPress={inputHandleSave}
-            >
-                <Text style={styles.buttonText}>Save</Text>
-            </Pressable>
-        </View>
+        <Modal visible={visibleState} animationType="slide">
+            <View style={styles.container}>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Enter work title"
+                    value={workInput}
+                    onChangeText={handleInputChange}
+                />
+                <Pressable style={styles.button} onPress={inputHandleSave}>
+                    <Text style={styles.buttonText}>Save</Text>
+                </Pressable>
+                <Pressable
+                    style={styles.button}
+                    onPress={handleSetModalFunction}
+                >
+                    <Text style={styles.buttonText}>Closs</Text>
+                </Pressable>
+            </View>
+        </Modal>
     );
 }
 
 const styles = StyleSheet.create({
-    inputContainer: {
-        width: "80%",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        marginBottom: 20,
-        gap: 10,
-    },
-    textInput: {
-        borderWidth: 1,
-        borderColor: "#ccc",
-        padding: 10,
-        fontSize: 18,
+    container: {
         flex: 1,
+        padding: 20,
+        justifyContent: "center",
+    },
+    input: {
+        height: 40,
+        borderColor: "#ccc",
+        borderWidth: 1,
         borderRadius: 8,
+        paddingHorizontal: 10,
+        marginBottom: 20,
+        fontSize: 16,
     },
     button: {
         backgroundColor: "#007BFF",
-        padding: 10,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
         borderRadius: 8,
+        alignItems: "center",
+        marginBottom: 10,
     },
     buttonText: {
         color: "#fff",
-        fontSize: 18,
-        textAlign: "center",
+        fontSize: 16,
     },
 });
