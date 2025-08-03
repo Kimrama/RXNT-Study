@@ -1,7 +1,12 @@
 import { useState } from "react";
-import { View, TextInput, StyleSheet, Alert } from "react-native";
-import Button from "../components/button";
-function StartGameScreen() {
+import { View, TextInput, StyleSheet, Alert, Text } from "react-native";
+import Button from "../components/ui/button";
+import Title from "../components/ui/title";
+import Card from "../components/ui/card";
+interface StartGameScreenProops {
+    onPickNumber: (pickedNumber: number) => void;
+}
+function StartGameScreen({ onPickNumber }: StartGameScreenProops) {
     const [enteredValue, setEnteredValue] = useState("");
     function handleInputChange(enteredText: string) {
         setEnteredValue(enteredText);
@@ -21,40 +26,46 @@ function StartGameScreen() {
                 ]
             );
         }
+        onPickNumber(parsedValue);
+        setEnteredValue("");
     }
 
     return (
-        <View style={styles.container}>
-            <TextInput
-                style={styles.textInput}
-                maxLength={2}
-                keyboardType="number-pad"
-                autoCapitalize={"none"}
-                autoCorrect={false}
-                onChangeText={handleInputChange}
-                value={enteredValue}
-            />
-            <View style={styles.buttonContainer}>
-                <View style={{ flex: 1 }}>
-                    <Button>Reset</Button>
+        <View style={styles.rootContainer}>
+            <Title>Guess My Number</Title>
+            <Card>
+                <Text style={styles.instruction}>Enter A Number</Text>
+                <TextInput
+                    style={styles.textInput}
+                    maxLength={2}
+                    keyboardType="number-pad"
+                    autoCapitalize={"none"}
+                    autoCorrect={false}
+                    onChangeText={handleInputChange}
+                    value={enteredValue}
+                />
+                <View style={styles.buttonsContainer}>
+                    <View style={styles.buttonContainer}>
+                        <Button>Reset</Button>
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        <Button onPress={handleStartPressed}>Start</Button>
+                    </View>
                 </View>
-                <View style={{ flex: 1 }}>
-                    <Button onPress={handleStartPressed}>Start</Button>
-                </View>
-            </View>
+            </Card>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        marginTop: 60,
-        marginHorizontal: 24,
-        padding: 16,
-        backgroundColor: "#0062ff",
-        borderRadius: 8,
-        elevation: 4,
+    rootContainer: {
+        flex: 1,
+        marginTop: 100,
         alignItems: "center",
+    },
+    instruction: {
+        fontSize: 36,
+        color: "white",
     },
     textInput: {
         fontSize: 32,
@@ -66,9 +77,11 @@ const styles = StyleSheet.create({
         marginBottom: 16,
         color: "#ffffff",
     },
-    buttonContainer: {
+    buttonsContainer: {
         flexDirection: "row",
-        justifyContent: "space-between",
+    },
+    buttonContainer: {
+        flex: 1,
     },
 });
 export default StartGameScreen;

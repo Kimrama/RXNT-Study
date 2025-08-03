@@ -1,8 +1,9 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import Colors from "../../constants/colors";
+import React, { ReactNode } from "react";
 
 interface ButtonProps {
-    children: string;
+    children: string | ReactNode;
     onPress?: () => void;
 }
 
