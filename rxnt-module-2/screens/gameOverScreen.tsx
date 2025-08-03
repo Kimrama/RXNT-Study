@@ -5,7 +5,7 @@ import Button from "../components/ui/button";
 
 interface GameOverScreenProps {
     startNewGameHandler: () => void;
-    endRound: number;
+    endRound: number | null;
     userNumber: number;
 }
 function GameOverScreen({
