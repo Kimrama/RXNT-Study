@@ -2,9 +2,19 @@ import { Text, View, StyleSheet, FlatList } from "react-native";
 import { MEALS } from "../data/data";
 import Meal from "../models/meal";
 import MealItem from "../components/MealItem";
+import { useLayoutEffect } from "react";
+import { CATEGORIES } from "../data/data";
 
-function MealOverviewScreen({ route }: any) {
+function MealOverviewScreen({ route, navigation }: any) {
     const categoryId = route.params.id;
+    useLayoutEffect(() => {
+        const categoryTitle = CATEGORIES.find((category) => {
+            return category.id === categoryId;
+        })?.title;
+        navigation.setOptions({
+            title: categoryTitle,
+        });
+    }, [categoryId, navigation]);
 
     function renderMealItem(item: Meal) {
         return (
@@ -35,8 +45,6 @@ function MealOverviewScreen({ route }: any) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
     },
 });
 

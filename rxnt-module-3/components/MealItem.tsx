@@ -53,6 +53,7 @@ function MealItem({
 
 const styles = StyleSheet.create({
     mealItem: {
+        flex: 1,
         margin: 16,
         borderRadius: 8,
         overflow: Platform.OS === "android" ? "hidden" : "visible",
