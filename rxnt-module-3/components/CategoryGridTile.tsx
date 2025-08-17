@@ -3,9 +3,10 @@ import { Pressable, View, Text, StyleSheet, Platform } from "react-native";
 interface CategoryGridTileProps {
     title: string;
     color: string;
+    onPress: () => void;
 }
 
-function CategoryGridTile({ title, color }: CategoryGridTileProps) {
+function CategoryGridTile({ title, color, onPress }: CategoryGridTileProps) {
     return (
         <View style={styles.gridItem}>
             <Pressable
@@ -14,6 +15,7 @@ function CategoryGridTile({ title, color }: CategoryGridTileProps) {
                     styles.buttonStyle,
                     pressed && styles.buttonPressed,
                 ]}
+                onPress={onPress}
             >
                 <View
                     style={[styles.innerContainer, { backgroundColor: color }]}
