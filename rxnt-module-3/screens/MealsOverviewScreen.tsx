@@ -17,6 +17,11 @@ function MealOverviewScreen({ route, navigation }: any) {
     }, [categoryId, navigation]);
 
     function renderMealItem(item: Meal) {
+        function selectMealHandler() {
+            navigation.navigate("MealDetail", {
+                mealId: item.id,
+            });
+        }
         return (
             <MealItem
                 title={item.title}
@@ -24,6 +29,7 @@ function MealOverviewScreen({ route, navigation }: any) {
                 duration={item.duration}
                 complexity={item.complexity}
                 affordability={item.affordability}
+                onPress={selectMealHandler}
             />
         );
     }

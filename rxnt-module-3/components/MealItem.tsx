@@ -7,12 +7,15 @@ import {
     Platform,
 } from "react-native";
 
+import MealDetails from "./MealDetails";
+
 interface MealItemProps {
     title: string;
     imageUrl: string;
     duration: number;
     complexity: string;
     affordability: string;
+    onPress: () => void;
 }
 
 function MealItem({
@@ -21,11 +24,13 @@ function MealItem({
     duration,
     complexity,
     affordability,
+    onPress,
 }: MealItemProps) {
     return (
         <View style={styles.mealItem}>
             <Pressable
                 android_ripple={{ color: "#ccc" }}
+                onPress={onPress}
                 style={({ pressed }) => pressed && styles.pressed}
             >
                 <View>
@@ -36,15 +41,11 @@ function MealItem({
                         />
                         <Text style={styles.title}>{title}</Text>
                     </View>
-                    <View style={styles.detail}>
-                        <Text style={styles.detailItem}>{duration} min</Text>
-                        <Text style={styles.detailItem}>
-                            {complexity.toUpperCase()}
-                        </Text>
-                        <Text style={styles.detailItem}>
-                            {affordability.toUpperCase()}
-                        </Text>
-                    </View>
+                    <MealDetails
+                        duration={duration}
+                        complexity={complexity}
+                        affordability={affordability}
+                    />
                 </View>
             </Pressable>
         </View>
@@ -76,16 +77,6 @@ const styles = StyleSheet.create({
         fontSize: 18,
         textAlign: "center",
         margin: 8,
-    },
-    detail: {
-        flexDirection: "row",
-        alignItems: "center",
-        padding: 8,
-        justifyContent: "center",
-    },
-    detailItem: {
-        marginHorizontal: 4,
-        fontSize: 12,
     },
 });
 export default MealItem;
