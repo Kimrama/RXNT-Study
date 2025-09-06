@@ -11,6 +11,9 @@ import FavoriteScreen from "./screens/FavoriteScreen";
 
 import FavoriteContextProvider from "./store/context/favorites-context";
 
+import { Provider } from "react-redux";
+import { store } from "./store/redux/store";
+
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -31,7 +34,8 @@ function DrawerNavigator() {
 export default function App() {
     return (
         <>
-            <FavoriteContextProvider>
+            {/* <FavoriteContextProvider> */}
+            <Provider store={store}>
                 <StatusBar style="light" />
                 <NavigationContainer>
                     <Stack.Navigator
@@ -66,7 +70,8 @@ export default function App() {
                         />
                     </Stack.Navigator>
                 </NavigationContainer>
-            </FavoriteContextProvider>
+            </Provider>
+            {/* </FavoriteContextProvider> */}
         </>
     );
 }
